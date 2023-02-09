@@ -4,9 +4,7 @@ import functools
 
 
 '''
-
 Utility functions to process NuMI MC samples 
-
 '''
 def logit_transform(score):
     return np.log(score/(1-score))
@@ -44,7 +42,8 @@ def Edit_Weight_Tune(df_to_Tune):
 
 def MC_weight_branch(df_MC): 
     #Writes a new branch called "weight" including, ppfx, weightSplineTimesTune AND if pi0 are present, scales by pi0 factor
+    df_MC = Edit_Weight_Tune(df_MC)
     df_MC["weight"] = df_MC["ppfx_cv"]*df_MC["weightSplineTimesTune"] 
 
     #not sure if the next line is relevant for my analysis...
-    #df_MC.loc[df_MC["npi0"]>0,"weight"] = df_MC["weight"][df_MC["npi0"]>0]*Constants.pi0_scaling_factor #If MC event contains pi0, need to scale down, derived from BNB data
+    #df_MC.loc[df_MC["npi0"]>0,"weight"] = df_MC["weight"][df_MC["npi0"]>0]*Constants.pi0_scaling_factor #If MC event contains pi0, need to scale down, derived
